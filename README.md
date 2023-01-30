@@ -1,2 +1,2 @@
-# tomato-timer
-A simple tomato timer app
+# Tomato Timer
+A simple tomato timer, written in React.js
