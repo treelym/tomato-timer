@@ -1,7 +1,11 @@
 let intervalId;
 
+function timeNode() {
+  return document.getElementById('time');
+}
+
 function tick() {
-  const timeLeft = document.getElementById('time').innerText;
+  const timeLeft = timeNode().innerText;
   const [minutesLeft, secondsLeft] = timeLeft.split(':').map(parseFloat);
   if (minutesLeft === 0 && secondsLeft === 0) {
     stopTimer();
@@ -24,11 +28,12 @@ function stopTimer() {
 }
 
 function resetTimer() {
+  stopTimer();
   displayTimeLeft();
 }
 
 function displayTimeLeft(minutes = 25, seconds = 0) {
-  document.getElementById('time').innerText =
+  timeNode().innerText =
     `${minutes.toString().padEnd(2, 0)}:${seconds.toString().padStart(2, 0)}`;
 }
 
