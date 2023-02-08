@@ -5,8 +5,9 @@ function timeNode() {
 }
 
 function displayTimeLeft(minutes = 25, seconds = 0) {
-  timeNode().innerText =
-    `${minutes.toString().padEnd(2, 0)}:${seconds.toString().padStart(2, 0)}`;
+  const displayValue = `${minutes.toString().padEnd(2, 0)}:${seconds.toString().padStart(2, 0)}`;
+  timeNode().innerText = displayValue;
+  document.title = displayValue;
 }
 
 function stopTimer() {
