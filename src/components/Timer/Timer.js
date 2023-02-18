@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import './Timer.css';
 
-const Timer = ({ minutesLeft = 25, secondsLeft = 0 }) => {
+// #494a52
+
+export const Timer = ({ minutesLeft = 25, secondsLeft = 0 }) => {
   const totalSeconds = (minutesLeft * 60) + secondsLeft;
   const [timeLeft, setTimeLeft] = useState(totalSeconds);
   const [intervalId, setIntervalId] = useState(null);
@@ -56,5 +58,3 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }) => {
     </div>
   );
 };
-
-export default Timer;
