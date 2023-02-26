@@ -13,6 +13,7 @@
   stroke: #fc5c65;
 }
 .timer-label {
+  color: #fefefe;
   position: absolute;
   height: 300px;
   width: 300px;
