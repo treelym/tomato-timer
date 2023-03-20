@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Timer.css';
 
 interface Props {
@@ -10,6 +10,19 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: Props): JSX.Element => {
   const totalSeconds = (minutesLeft * 60) + secondsLeft;
   const [timeLeft, setTimeLeft] = useState<number>(totalSeconds);
   const [intervalId, setIntervalId] = useState<number | null>(null);
+  const [circleStrokeOffset, setCircleStrokeOffset] = useState<number>(0);
+
+  useEffect(() => {
+    return () => {
+      if (intervalId) {
+        window.clearInterval(intervalId);
+      }
+    }
+  }, [intervalId]);
+
+  useEffect(() => {
+    setCircleStrokeOffset((timeLeft / totalSeconds) * 283);
+  }, [timeLeft, totalSeconds]);
 
   const handleStartTimer = () => {
     if (!intervalId) {
@@ -67,11 +80,20 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: Props): JSX.Element => {
       <div className='columns'>
         <div className='column is-half is-offset-one-quarter has-text-centered'>
           <div className='timer'>
-            <h2 className='timer-text has-text-primary has-text-weight-semibold'>{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h2>
-          </div>
-          <div className='timer-controls'>
-            <div className='columns'>
-              <div className='column is-4 is-offset-4'>
+            <svg className='timer-svg' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
+              <circle className='timer-path-bg' cx='50' cy='50' r='45' />
+              <circle
+                className='timer-path'
+                cx='50'
+                cy='50'
+                r='45'
+                strokeDasharray='283'
+                strokeDashoffset={circleStrokeOffset}
+              />
+            </svg>
+            <div className='timer-text'>
+              <h2 className='timer-heading has-text-primary has-text-weight-semibold'>{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h2>
+              <div className='timer-controls'>
                 <span className='timer-control timer-play-pause' onClick={intervalId ? handleStopTimer : handleStartTimer}>
                   {intervalId ? <Pause /> : <Play />}
                 </span>
