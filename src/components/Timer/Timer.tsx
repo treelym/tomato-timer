@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import './Timer.css';
+import { useState, useEffect } from 'react';
 
 interface Props {
   minutesLeft?: number;
@@ -92,7 +91,7 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: Props): JSX.Element => {
               />
             </svg>
             <div className='timer-text'>
-              <h2 className='timer-heading has-text-primary has-text-weight-semibold'>{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h2>
+              <h2 className='timer-heading has-text-light has-text-weight-semibold'>{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h2>
               <div className='timer-controls'>
                 <span className='timer-control timer-play-pause' onClick={intervalId ? handleStopTimer : handleStartTimer}>
                   {intervalId ? <Pause /> : <Play />}
