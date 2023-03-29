@@ -1,6 +1,58 @@
+document.addEventListener('DOMContentLoaded', () => {
+  // setupEventListeners();
+
+  const state = {
+    secondsRemaining: 25 * 60, // 25 minutes
+    timerInProgress: false,
+    intervalId: null
+  };
+
+  function timeNode() {
+    return document.getElementById('time');
+  }
+
+  function displayTimeLeft(secondsRemaining) {
+    const minutes = Math.floor(secondsRemaining / 60);
+    const seconds = secondsRemaining % 60;
+    const timeLeftText = `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+
+    timeNode().innerText = timeLeftText;
+  }
+
+  function setupEventListeners() {
+    document.getElementById('start').addEventListener('click', () => {
+      startTimer();
+    });
+    document.getElementById('stop').addEventListener('click', () => {
+      stopTimer();
+    });
+    document.getElementById('reset').addEventListener('click', () => {
+      resetTimer();
+    });
+  }
+
+  function startTimer() {
+    if (!state.intervalId) {
+      state.intervalId = setInterval(function() {
+        if (secondsLeft === 0) {
+          clearInterval();
+          displayTimeLeft()
+        }
+        displayTimeLeft(secondsLeft - 1);
+      }, 1000);
+    }
+    // intervalId = setInterval(tick, 1000);
+  }
+
+  displayTimeLeft(state.secondsRemaining);
+});
+
 (function() {
-  let secondsLeft = 25 * 60; // 25 minutes
-  let intervalId;
+  const state = {
+    secondsRemaining: 25 * 60, // 25 minutes
+    timerInProgress: false,
+    intervalId: null
+  };
 
   function timeNode() {
     return document.getElementById('time');
