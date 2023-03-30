@@ -40,6 +40,33 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: TimerProps): JSX.Element =
   const [timeLeft, setTimeLeft] = useState<number>(totalSeconds);
   const [intervalId, setIntervalId] = useState<number | null>(null);
 
+  // Keyboard shortcuts
+  // Space toggles start/stop
+  // Cmd/Ctrl + R resets
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === ' ' || event.key === 'Spacebar') {
+        event.preventDefault(); // Prevent scrolling
+        if (intervalId) {
+          handleStopTimer();
+        } else {
+          handleStartTimer();
+        }
+      } else if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'R') {
+        event.preventDefault(); // Prevent page reload
+        handleResetTimer();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+    // eslint-disable-next-line
+  }, [intervalId]);
+
+  // Cleanup
   useEffect(() => {
     return () => {
       if (intervalId) {
@@ -48,6 +75,7 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: TimerProps): JSX.Element =
     }
   }, [intervalId]);
 
+  // Stop timer when it hits 0
   useEffect(() => {
     if (timeLeft === 0 && intervalId) {
       window.clearInterval(intervalId);
@@ -55,7 +83,7 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: TimerProps): JSX.Element =
     }
   }, [timeLeft, intervalId]);
 
-  const handleStartTimer = () => {
+  function handleStartTimer() {
     if (!intervalId) {
       if (typeof window !== 'undefined') {
         const interval = window.setInterval(() => {
@@ -66,7 +94,7 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: TimerProps): JSX.Element =
     }
   };
 
-  const handleStopTimer = () => {
+  function handleStopTimer() {
     if (intervalId) {
       if (typeof window !== 'undefined') {
         clearInterval(intervalId);
@@ -75,7 +103,7 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: TimerProps): JSX.Element =
     }
   };
 
-  const handleResetTimer = () => {
+  function handleResetTimer() {
     handleStopTimer();
     setTimeLeft(totalSeconds);
   };
