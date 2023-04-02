@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
 
-import Timer from '@/components/Timer';
+import { Timer } from '@/components';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,7 +15,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='app'>
-        <Timer />
+        <div className='timer-container'>
+          <div className='columns'>
+            <div className='column is-half is-offset-one-quarter has-text-centered'>
+              <div className='timer'>
+                <div className='timer-text'>
+                  <Timer />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
     </>
   );
