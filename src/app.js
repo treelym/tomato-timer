@@ -12,7 +12,7 @@ app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, './views'));
 
 app.get('/', (req, res) => {
-  res.render('home');
+  res.render('home', { meta_title: 'Tomato Timer' });
 });
 
 app.listen(port, () => {
