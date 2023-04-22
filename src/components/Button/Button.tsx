@@ -11,7 +11,7 @@ const Button = ({ color, onClick, text }: ButtonProps): JSX.Element => (
     className={`button is-${color} is-outlined is-large is-fullwidth`}
     onClick={onClick}
   >
-    <span className='has-text-weight-bold'>{text}</span>
+    <span className='has-text-weight-bold is-uppercase'>{text}</span>
   </button>
 );
 

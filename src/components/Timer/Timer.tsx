@@ -12,28 +12,6 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: TimerProps): JSX.Element =
   const [timeLeft, setTimeLeft] = useState<number>(totalSeconds);
   const [intervalId, setIntervalId] = useState<number | null>(null);
 
-  // Keyboard shortcuts
-  // Space toggles start/stop
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === ' ' || event.key === 'Spacebar') {
-        event.preventDefault(); // Prevent scrolling
-        if (intervalId) {
-          handleStopTimer();
-        } else {
-          handleStartTimer();
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-    // eslint-disable-next-line
-  }, [intervalId]);
-
   // Cleanup
   useEffect(() => {
     return () => {
@@ -87,7 +65,7 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: TimerProps): JSX.Element =
 
   return (
     <>
-      <h2 className='timer-heading has-text-light has-text-weight-semibold'>{formatTime(minutes, seconds)}</h2>
+      <h2 className='timer-heading has-text-weight-semibold'>{formatTime(minutes, seconds)}</h2>
       <div className='timer-controls'>
         <div className='columns'>
           <div className='column'>

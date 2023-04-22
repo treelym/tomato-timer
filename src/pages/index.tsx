@@ -1,11 +1,28 @@
+// import { useState } from 'react';
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
 
-import { Timer } from '@/components';
+import {
+  // TaskInput,
+  // TaskTable,
+  Timer
+} from '@/components';
 
 const inter = Inter({ subsets: ['latin'] });
 
+// interface Tasks {
+//   id: number;
+//   text: string;
+//   completed?: boolean;
+// }
+
 export default function Home() {
+  // const [tasks, setTasks] = useState<string[]>([]);
+
+  // function handleAddTask(task: string) {
+  //   setTasks(prevTasks => [...prevTasks, task]);
+  // }
+
   return (
     <>
       <Head>
@@ -25,6 +42,15 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* <div className='column is-half is-offset-one-quarter has-text-centered'>
+            <TaskInput onAddTask={handleAddTask} />
+          </div> */}
+
+          {/* <div className='column is-half is-offset-one-quarter has-text-centered mt-6'>
+            {tasks.length > 0 ? <TaskTable tasks={tasks} /> : null}
+          </div> */}
+
         </div>
       </main>
     </>
