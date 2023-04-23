@@ -1,8 +1,7 @@
-.timer-heading {
+.app {
+  min-height: 100vh;
+}
+.timer-value {
   font-size: 7rem !important;
   margin-bottom: 1rem;
-}
-
-.timer-control {
-  cursor: pointer;
 }

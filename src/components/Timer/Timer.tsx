@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
+import TimerValue from './TimerValue';
 import { Button } from '@/components';
 import { ButtonColors } from '@/constants';
 
-interface TimerProps {
+interface Props {
   minutesLeft?: number;
   secondsLeft?: number;
 }
 
-const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: TimerProps): JSX.Element => {
+type IntervalId = number | null;
+
+const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: Props): JSX.Element => {
   const totalSeconds = (minutesLeft * 60) + secondsLeft;
   const [timeLeft, setTimeLeft] = useState<number>(totalSeconds);
-  const [intervalId, setIntervalId] = useState<number | null>(null);
+  const [intervalId, setIntervalId] = useState<IntervalId>(null);
 
   // Cleanup
   useEffect(() => {
@@ -31,21 +34,17 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: TimerProps): JSX.Element =
 
   function handleStartTimer() {
     if (!intervalId) {
-      if (typeof window !== 'undefined') {
-        const interval = window.setInterval(() => {
-          setTimeLeft(prevTime => prevTime - 1);
-        }, 1000);
-        setIntervalId(interval);
-      }
+      const interval = window.setInterval(() => {
+        setTimeLeft(prevTime => prevTime - 1);
+      }, 1000);
+      setIntervalId(interval);
     }
   };
 
   function handleStopTimer() {
     if (intervalId) {
-      if (typeof window !== 'undefined') {
-        clearInterval(intervalId);
-        setIntervalId(null);
-      }
+      clearInterval(intervalId);
+      setIntervalId(null);
     }
   };
 
@@ -53,19 +52,15 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: TimerProps): JSX.Element =
     handleStopTimer();
     setTimeLeft(totalSeconds);
   };
-
-  function formatTime(minutes: number, seconds: number): string {
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes.toString();
-    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds.toString();
-    return `${formattedMinutes}:${formattedSeconds}`;
-  };
   
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
   return (
-    <>
-      <h2 className='timer-heading has-text-weight-semibold'>{formatTime(minutes, seconds)}</h2>
+    <div className='timer'>
+      <h2 className='timer-value has-text-weight-semibold'>
+        <TimerValue minutes={minutes} seconds={seconds} />
+      </h2>
       <div className='timer-controls'>
         <div className='columns'>
           <div className='column'>
@@ -79,7 +74,7 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: TimerProps): JSX.Element =
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

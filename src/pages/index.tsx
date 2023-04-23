@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Inter } from 'next/font/google';
 
 import {
+  Navigation,
   // TaskInput,
   // TaskTable,
   Timer
@@ -31,15 +32,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='app'>
+      <Navigation />
+      <main>
         <div className='timer-container'>
           <div className='columns'>
             <div className='column is-half is-offset-one-quarter has-text-centered'>
-              <div className='timer'>
-                <div className='timer-text'>
-                  <Timer />
-                </div>
-              </div>
+              <Timer />
             </div>
           </div>
 

@@ -4,10 +4,8 @@ import type { AppProps } from 'next/app';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <section className='section'>
-        <Component {...pageProps} />
-      </section>
-    </>
+    <div className='app has-background-black-ter has-text-white-bis'>
+      <Component {...pageProps} />
+    </div>
   );
 }
