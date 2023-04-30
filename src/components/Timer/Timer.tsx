@@ -24,11 +24,14 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: Props): JSX.Element => {
     }
   }, [intervalId]);
 
-  // Stop timer when it hits 0
+  // When timer hits 0 reset it and sound the alarm
   useEffect(() => {
     if (timeLeft === 0 && intervalId) {
       window.clearInterval(intervalId);
       setIntervalId(null);
+
+      const alarm = new Audio('most-annoying-sound-in-the-world.mp3');
+      alarm.play();
     }
   }, [timeLeft, intervalId]);
 
@@ -64,13 +67,28 @@ const Timer = ({ minutesLeft = 25, secondsLeft = 0 }: Props): JSX.Element => {
       <div className='timer-controls'>
         <div className='columns'>
           <div className='column'>
-            <Button color={ButtonColors.SUCCESS} onClick={handleStartTimer} text={'Start'} />
+            <Button
+              color={ButtonColors.SUCCESS}
+              disabled={!!intervalId}
+              onClick={handleStartTimer}
+              text={'Start'}
+            />
           </div>
           <div className='column'>
-            <Button color={ButtonColors.DANGER} onClick={handleStopTimer} text={'Stop'} />
+            <Button
+              color={ButtonColors.DANGER}
+              disabled={!intervalId}
+              onClick={handleStopTimer}
+              text={'Stop'}
+            />
           </div>
           <div className='column'>
-            <Button color={ButtonColors.INFO} onClick={handleResetTimer} text='Reset' />
+            <Button
+              color={ButtonColors.INFO}
+              disabled={totalSeconds === timeLeft}
+              onClick={handleResetTimer}
+              text='Reset'
+            />
           </div>
         </div>
       </div>
